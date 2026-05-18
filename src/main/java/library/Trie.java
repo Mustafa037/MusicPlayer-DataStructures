@@ -1,3 +1,7 @@
+package library;
+
+import model.Song;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +12,7 @@ public class Trie {
         root = new TrieNode();
     }
 
-    // Şarkı adına göre Trie'ye ekleme
+    // Şarkı adına göre library.Trie'ye ekleme
     public void insert(String keyword, Song song) {
         TrieNode current = root;
         keyword = keyword.toLowerCase(); // Küçük/büyük harf duyarlılığını kaldırıyoruz
