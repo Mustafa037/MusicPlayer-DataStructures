@@ -23,6 +23,10 @@ public class PlaybackManager {
         if (playlist.getCurrent() != null) {
             history.push(playlist.getCurrent());
         }
+
+        // YENİ: Listenin içindeki current ibresini çalan şarkıya senkronize ediyoruz!
+        playlist.setCurrentBySong(song);
+
         audioService.play(song.getFilePath());
     }
 
@@ -48,6 +52,10 @@ public class PlaybackManager {
     public void previous() {
         if (!history.isEmpty()) {
             Song prevSong = history.pop();
+
+            // YENİ: Geçmişten şarkı alındığında listenin ibresini de o şarkıya çekiyoruz!
+            playlist.setCurrentBySong(prevSong);
+
             audioService.play(prevSong.getFilePath());
         }
     }

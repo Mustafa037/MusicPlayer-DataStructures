@@ -44,6 +44,15 @@
     </dependencies>
 
     <build>
+        <resources>
+            <resource>
+                <directory>src/java</directory>
+                <includes>
+                    <include>**/*.fxml</include>
+                </includes>
+            </resource>
+        </resources>
+
         <plugins>
             <plugin>
                 <groupId>org.openjfx</groupId>
@@ -55,5 +64,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

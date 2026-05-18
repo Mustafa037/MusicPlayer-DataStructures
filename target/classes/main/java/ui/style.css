@@ -1,0 +1,115 @@
+/* Ana Pencere Arka Planı */
+.root {
+    -fx-background-color: #121214 !important;
+    -fx-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* Oynatma Listesi Başlığı */
+.label {
+    -fx-text-fill: #ffffff !important;
+    -fx-font-size: 16px !important;
+    -fx-font-weight: bold !important;
+}
+
+/* Alttaki ve Üstteki Tüm Beyaz Konteynerları Kökten Silme */
+.hbox, .vbox, .border-pane, .stack-pane, .anchor-pane, .tool-bar, .pane {
+    -fx-background-color: transparent !important;
+}
+
+/* Arama Çubuğu (TextField) */
+.text-field {
+    -fx-background-color: #1e1e22 !important;
+    -fx-text-fill: #ffffff !important;
+    -fx-prompt-text-fill: #a1a1aa !important;
+    -fx-background-radius: 20 !important;
+    -fx-border-radius: 20 !important;
+    -fx-border-color: #2f2f35 !important;
+    -fx-border-width: 1 !important;
+    -fx-padding: 8 15 8 15 !important;
+}
+.text-field:focused {
+    -fx-border-color: #00e5ff !important;
+    -fx-background-color: #24242a !important;
+}
+
+/* ================================================================= */
+/* ŞARKİ LİSTESİ (LISTVIEW) - O BEYAZ ZEBRA ÇİZGİLERİNİ ÖLDÜREN KISIM */
+/* ================================================================= */
+.list-view {
+    -fx-background-color: #151518 !important;
+    -fx-control-inner-background: #151518 !important; /* Beyaz ana arka planı öldürür */
+    -fx-control-inner-background-alt: #151518 !important; /* Alternatif gri çizgiyi öldürür */
+    -fx-background-radius: 12 !important;
+    -fx-border-radius: 12 !important;
+    -fx-border-color: #222226 !important;
+    -fx-border-width: 1 !important;
+}
+
+/* Tüm satırları (tek veya çift fark etmeksizin) koyu renge zorluyoruz */
+.list-cell {
+    -fx-background-color: #151518 !important;
+    -fx-text-fill: #ffffff !important;
+    -fx-padding: 12 15 12 15 !important;
+    -fx-font-size: 13px !important;
+}
+.list-cell:odd {
+    -fx-background-color: #151518 !important;
+}
+.list-cell:even {
+    -fx-background-color: #151518 !important;
+}
+.list-cell:filled {
+    -fx-text-fill: #ffffff !important;
+}
+.list-cell .text {
+    -fx-fill: #ffffff !important; /* Şarkı isimlerini net beyaz yapar */
+}
+
+/* Fareyle şarkının üzerine gelindiğinde */
+.list-cell:filled:hover {
+    -fx-background-color: #222226 !important;
+}
+.list-cell:filled:hover .text {
+    -fx-fill: #00e5ff !important;
+}
+
+/* Şarkı seçildiğinde (Neon Mavi Şov) */
+.list-cell:filled:selected {
+    -fx-background-color: #00e5ff !important;
+}
+.list-cell:filled:selected .text {
+    -fx-fill: #000000 !important;
+    -fx-font-weight: bold !important;
+}
+
+/* ================================================================= */
+/* BUTONLAR */
+/* ================================================================= */
+.button {
+    -fx-background-color: #1e1e22 !important;
+    -fx-text-fill: #ffffff !important;
+    -fx-background-radius: 20 !important;
+    -fx-border-radius: 20 !important;
+    -fx-border-color: #3f3f46 !important;
+    -fx-border-width: 1 !important;
+    -fx-padding: 8 20 8 20 !important;
+    -fx-font-size: 13px !important;
+    -fx-font-weight: bold !important;
+}
+.button:hover {
+    -fx-background-color: #00e5ff !important;
+    -fx-text-fill: #000000 !important;
+    -fx-border-color: #00e5ff !important;
+}
+
+/* Çal / Duraklat Butonu */
+#playButton {
+    -fx-background-color: #1db954 !important;
+    -fx-text-fill: #ffffff !important;
+    -fx-border-color: #1db954 !important;
+}
+#playButton:hover {
+    -fx-background-color: #1ed760 !important;
+    -fx-text-fill: #000000 !important;
+    -fx-border-color: #1ed760 !important;
+}

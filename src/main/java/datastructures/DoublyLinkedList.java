@@ -70,6 +70,18 @@ public class DoublyLinkedList {
             }
             temp = temp.next;
         }
+    }// Seçilen şarkıyı listede bulup 'current' ibresini o düğüme eşitleyen metot
+    public void setCurrentBySong(Song song) {
+        if (head == null || song == null) return;
+
+        Node temp = head;
+        for (int i = 0; i < size; i++) {
+            if (temp.song.getId() == song.getId()) {
+                this.current = temp; // İbreyi bulduğumuz şarkı düğümüne eşitliyoruz
+                return;
+            }
+            temp = temp.next;
+        }
     }
 
     public int getSize() { return size; }

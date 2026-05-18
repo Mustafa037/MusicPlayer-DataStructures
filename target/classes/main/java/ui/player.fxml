@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.PlayerController" prefHeight="600.0" prefWidth="800.0">
+
+    <top>
+        <HBox spacing="10" alignment="CENTER">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+            <TextField fx:id="searchField" promptText="Şarkı veya sanatçı ara (Trie ile)..." prefWidth="400"/>
+            <Button text="Ara" fx:id="searchButton" onAction="#handleSearch"/>
+        </HBox>
+    </top>
+
+    <center>
+        <VBox alignment="CENTER" spacing="10">
+            <padding>
+                <Insets right="20" bottom="20" left="20"/>
+            </padding>
+            <Label text="Oynatma Listesi" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+            <ListView fx:id="songListView" VBox.vgrow="ALWAYS"/>
+        </VBox>
+    </center>
+
+    <bottom>
+        <HBox spacing="20" alignment="CENTER" style="-fx-background-color: transparent;">
+            <padding>
+                <Insets top="15" right="15" bottom="15" left="15"/>
+            </padding>
+            <Button text="⏮ Önceki" fx:id="prevButton" onAction="#playPrevious"/>
+            <Button text="▶ Çal / Duraklat" fx:id="playButton" onAction="#togglePlay"/>
+            <Button text="⏭ Sonraki" fx:id="nextButton" onAction="#playNext"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

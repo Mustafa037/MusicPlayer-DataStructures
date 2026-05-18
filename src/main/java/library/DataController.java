@@ -87,10 +87,12 @@ public class DataController {
     }
 
     // ---------------- TEST VERİLERİ ----------------
+    // ---------------- TEST VERİLERİ ----------------
     private void loadMockData() {
-        addSong(new Song(1, "Bohemian Rhapsody", "Queen", 354, "/music/bohemian.mp3"));
-        addSong(new Song(2, "Hotel California", "Eagles", 390, "/music/hotel.mp3"));
-        addSong(new Song(3, "Smells Like Teen Spirit", "Nirvana", 301, "/music/smells.mp3"));
-        addSong(new Song(4, "Stairway to Heaven", "Led Zeppelin", 482, "/music/stairway.mp3"));
+        // Başlarındaki "/" işaretlerini sildik, böylece projenin kökündeki music klasörüne bakacak
+        addSong(new Song(1, "Calfiornia Love", "2Pac", 354, "music/bohemian.mp3"));
+        addSong(new Song(2, "Ankara Tatangalar", "Lvbel C5, Ezhel", 390, "music/hotel.mp3"));
+        addSong(new Song(3, "Yüzük", "Oğuzhan Koç", 301, "music/smells.mp3"));
+        addSong(new Song(4, "Dudu", "Tarkan", 482, "music/stairway.mp3"));
     }
 }
