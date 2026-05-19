@@ -87,7 +87,6 @@ public class DataController {
     }
 
     // ---------------- TEST VERİLERİ ----------------
-    // ---------------- TEST VERİLERİ ----------------
     private void loadMockData() {
         // Başlarındaki "/" işaretlerini sildik, böylece projenin kökündeki music klasörüne bakacak
         addSong(new Song(1, "Calfiornia Love", "2Pac", 354, "music/bohemian.mp3"));

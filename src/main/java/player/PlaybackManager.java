@@ -60,6 +60,26 @@ public class PlaybackManager {
         }
     }
 
+    public void shuffle() {
+        Song current = playlist.getCurrent();
+        java.util.List<Song> songs = new java.util.ArrayList<>();
+
+        for (int i = 0; i < playlist.getSize(); i++) {
+            songs.add(playlist.next());
+        }
+
+        java.util.Collections.shuffle(songs);
+
+        playlist = new DoublyLinkedList();
+        for (Song song : songs) {
+            playlist.add(song);
+        }
+
+        if (current != null) {
+            audioService.play(playlist.getCurrent().getFilePath());
+        }
+    }
+
     public void pause() { audioService.pause(); }
     public void resume() { audioService.resume(); }
     public void stop() { audioService.stop(); }

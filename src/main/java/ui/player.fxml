@@ -17,24 +17,68 @@
     </top>
 
     <center>
-        <VBox alignment="CENTER" spacing="10">
-            <padding>
-                <Insets right="20" bottom="20" left="20"/>
-            </padding>
-            <Label text="Oynatma Listesi" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
-            <ListView fx:id="songListView" VBox.vgrow="ALWAYS"/>
-        </VBox>
+        <TabPane>
+            <tabs>
+                <Tab text="🎵 Kütüphane" closable="false">
+                    <VBox alignment="CENTER" spacing="10">
+                        <padding>
+                            <Insets right="20" bottom="20" left="20"/>
+                        </padding>
+                        <ListView fx:id="songListView" VBox.vgrow="ALWAYS" prefHeight="400">
+                            <contextMenu>
+                                <ContextMenu>
+                                    <items>
+                                        <MenuItem text="▶ Çal" onAction="#handleSongPlay"/>
+                                        <MenuItem text="➕ Playlist'e Ekle" onAction="#addToPlaylist"/>
+                                        <MenuItem text="⏭ Sıraya Ekle" onAction="#addToQueue"/>
+                                    </items>
+                                </ContextMenu>
+                            </contextMenu>
+                        </ListView>
+                    </VBox>
+                </Tab>
+                <Tab text="📋 Playlist" closable="false">
+                    <VBox alignment="CENTER" spacing="10">
+                        <padding>
+                            <Insets right="20" bottom="20" left="20"/>
+                        </padding>
+                        <ListView fx:id="playlistView" VBox.vgrow="ALWAYS" prefHeight="400">
+                            <contextMenu>
+                                <ContextMenu>
+                                    <items>
+                                        <MenuItem text="▶ Çal" onAction="#playFromPlaylist"/>
+                                        <MenuItem text="❌ Kaldır" onAction="#removeFromPlaylist"/>
+                                    </items>
+                                </ContextMenu>
+                            </contextMenu>
+                        </ListView>
+                    </VBox>
+                </Tab>
+            </tabs>
+        </TabPane>
     </center>
 
     <bottom>
-        <HBox spacing="20" alignment="CENTER" style="-fx-background-color: transparent;">
+        <VBox alignment="CENTER" spacing="5">
             <padding>
-                <Insets top="15" right="15" bottom="15" left="15"/>
+                <Insets top="10" bottom="10"/>
             </padding>
-            <Button text="⏮ Önceki" fx:id="prevButton" onAction="#playPrevious"/>
-            <Button text="▶ Çal / Duraklat" fx:id="playButton" onAction="#togglePlay"/>
-            <Button text="⏭ Sonraki" fx:id="nextButton" onAction="#playNext"/>
-        </HBox>
+            <HBox alignment="CENTER" spacing="10">
+                <Label fx:id="nowPlayingLabel" text="Şu an çalmıyor"
+                       style="-fx-font-size: 13px; -fx-text-fill: #aaaaaa;"/>
+                <Slider fx:id="progressBar" min="0" max="1" value="0" prefWidth="300"/>
+            </HBox>
+            <HBox spacing="20" alignment="CENTER">
+                <padding>
+                    <Insets top="5" right="15" bottom="15" left="15"/>
+                </padding>
+                <Button text="⏮ Önceki" fx:id="prevButton" onAction="#playPrevious"/>
+                <Button text="▶ Çal / Duraklat" fx:id="playButton" onAction="#togglePlay"/>
+                <Button text="⏭ Sonraki" fx:id="nextButton" onAction="#playNext"/>
+                <Button text="🔀 Shuffle" onAction="#handleShuffle"/>
+                <Slider fx:id="volumeSlider" min="0" max="1" value="0.5" prefWidth="100"/>
+            </HBox>
+        </VBox>
     </bottom>
 
 </BorderPane>

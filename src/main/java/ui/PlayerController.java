@@ -4,12 +4,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import library.DataController;
 import model.Song;
 import player.PlaybackManager;
+import javafx.animation.Timeline;
+import javafx.animation.KeyFrame;
+import javafx.util.Duration;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import java.io.*;
+import java.lang.reflect.Type;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +51,22 @@ public class PlayerController {
     private Button nextButton;
 
     @FXML
+    private Label nowPlayingLabel;
+
+    @FXML
+    private Slider volumeSlider;
+
+    @FXML
+    private Slider progressBar;
+
+    @FXML
+    private ListView<String> playlistView;
+
+    private ObservableList<String> observablePlaylistList;
+
+    private List<Song> playlistSongs = new ArrayList<>();
+
+    @FXML
     public void initialize() {
         dataController = new DataController();
         playbackManager = new PlaybackManager();
@@ -69,6 +90,29 @@ public class PlayerController {
                 handleSongSelection();
             }
         });
+        observablePlaylistList = FXCollections.observableArrayList();
+        playlistView.setItems(observablePlaylistList);
+
+        playlistView.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 2) {
+                playFromPlaylist(null);
+            }
+        });
+
+        volumeSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
+            playbackManager.setVolume(newVal.doubleValue());
+        });
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
+            double current = playbackManager.getCurrentTime();
+            double total = playbackManager.getTotalDuration();
+            if (total > 0) {
+                progressBar.setValue(current / total);
+            }
+        }));
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
+
+        loadPlaylist();
     }
 
     // Listeden bir şarkı çift tıklandığında çalışacak metot
@@ -84,6 +128,7 @@ public class PlayerController {
 
             isPlaying = true;
             playButton.setText("⏸ Duraklat");
+            nowPlayingLabel.setText("▶ " + secilenSarki.getTitle() + " - " + secilenSarki.getArtist());
         }
     }
 
@@ -162,6 +207,7 @@ public class PlayerController {
             System.out.println("Sonraki şarkıya geçildi: " + suAnCalan.getTitle());
             // Arayüzdeki listede çalan şarkıyı otomatik seçili hale getirelim (Görsel senkronizasyon)
             syncListViewSelection(suAnCalan);
+            nowPlayingLabel.setText("▶ " + suAnCalan.getTitle() + " - " + suAnCalan.getArtist());
         }
     }
 
@@ -176,6 +222,7 @@ public class PlayerController {
         if (suAnCalan != null) {
             System.out.println("Önceki şarkıya geri dönüldü: " + suAnCalan.getTitle());
             syncListViewSelection(suAnCalan);
+            nowPlayingLabel.setText("▶ " + suAnCalan.getTitle() + " - " + suAnCalan.getArtist());
         }
     }
 
@@ -186,6 +233,95 @@ public class PlayerController {
                 songListView.getSelectionModel().select(i);
                 break;
             }
+        }
+    }
+
+    @FXML
+    void handleShuffle(ActionEvent event) {
+        playbackManager.shuffle();
+        listAllSongsSorted();
+        Song current = playbackManager.getCurrentSong();
+        if (current != null) {
+            nowPlayingLabel.setText("▶ " + current.getTitle() + " - " + current.getArtist());
+            syncListViewSelection(current);
+        }
+    }
+
+    @FXML
+    void handleSongPlay(ActionEvent event) {
+        handleSongSelection();
+    }
+
+    @FXML
+    void addToPlaylist(ActionEvent event) {
+        int selectedIndex = songListView.getSelectionModel().getSelectedIndex();
+        if (selectedIndex >= 0 && selectedIndex < currentSongsInList.size()) {
+            Song secilen = currentSongsInList.get(selectedIndex);
+            observablePlaylistList.add(secilen.getTitle() + " - " + secilen.getArtist());
+            playlistSongs.add(secilen);
+        }
+        savePlaylist();
+    }
+
+    @FXML
+    void addToQueue(ActionEvent event) {
+        int selectedIndex = songListView.getSelectionModel().getSelectedIndex();
+        if (selectedIndex >= 0 && selectedIndex < currentSongsInList.size()) {
+            Song secilen = currentSongsInList.get(selectedIndex);
+            playbackManager.addToQueue(secilen);
+            System.out.println("Sıraya eklendi: " + secilen.getTitle());
+        }
+    }
+
+    @FXML
+    void playFromPlaylist(ActionEvent event) {
+        int selectedIndex = playlistView.getSelectionModel().getSelectedIndex();
+        System.out.println("Seçilen index: " + selectedIndex);
+        System.out.println("Playlist boyutu: " + playlistSongs.size());
+
+        if (selectedIndex >= 0 && selectedIndex < playlistSongs.size()) {
+            Song secilen = playlistSongs.get(selectedIndex);
+            System.out.println("Çalınıyor: " + secilen.getTitle());
+            playbackManager.play(secilen);
+            isPlaying = true;
+            playButton.setText("⏸ Duraklat");
+            nowPlayingLabel.setText("▶ " + secilen.getTitle() + " - " + secilen.getArtist());
+        }
+    }
+
+    @FXML
+    void removeFromPlaylist(ActionEvent event) {
+        int selectedIndex = playlistView.getSelectionModel().getSelectedIndex();
+        if (selectedIndex >= 0) {
+            observablePlaylistList.remove(selectedIndex);
+            playlistSongs.remove(selectedIndex);
+        }
+        savePlaylist();
+    }
+
+    private void savePlaylist() {
+        try (Writer writer = new FileWriter("playlist.json")) {
+            new Gson().toJson(playlistSongs, writer);
+        } catch (IOException e) {
+            System.out.println("Playlist kaydedilemedi: " + e.getMessage());
+        }
+    }
+
+    private void loadPlaylist() {
+        File file = new File("playlist.json");
+        if (!file.exists()) return;
+
+        try (Reader reader = new FileReader(file)) {
+            Type type = new TypeToken<List<Song>>(){}.getType();
+            List<Song> loaded = new Gson().fromJson(reader, type);
+            if (loaded != null) {
+                for (Song song : loaded) {
+                    playlistSongs.add(song);
+                    observablePlaylistList.add(song.getTitle() + " - " + song.getArtist());
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Playlist yüklenemedi: " + e.getMessage());
         }
     }
 }

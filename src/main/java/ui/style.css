@@ -1,115 +1,208 @@
-/* Ana Pencere Arka Planı */
+/* ============================================================ */
+/* ANA PENCERE */
+/* ============================================================ */
 .root {
-    -fx-background-color: #121214 !important;
+    -fx-background-color: #0a0a0c;
     -fx-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-/* Oynatma Listesi Başlığı */
-.label {
-    -fx-text-fill: #ffffff !important;
-    -fx-font-size: 16px !important;
-    -fx-font-weight: bold !important;
+.hbox, .vbox, .border-pane, .stack-pane, .anchor-pane, .pane {
+    -fx-background-color: transparent;
 }
 
-/* Alttaki ve Üstteki Tüm Beyaz Konteynerları Kökten Silme */
-.hbox, .vbox, .border-pane, .stack-pane, .anchor-pane, .tool-bar, .pane {
-    -fx-background-color: transparent !important;
+/* ============================================================ */
+/* SEKME ÇUBUĞU */
+/* ============================================================ */
+.tab-pane {
+    -fx-background-color: #0a0a0c;
 }
 
-/* Arama Çubuğu (TextField) */
+.tab-pane .tab-header-area {
+    -fx-background-color: #0a0a0c;
+    -fx-padding: 0 0 0 10;
+}
+
+.tab-pane .tab-header-background {
+    -fx-background-color: #0a0a0c;
+}
+
+.tab {
+    -fx-background-color: #1a1a1f;
+    -fx-background-radius: 10 10 0 0;
+    -fx-padding: 8 20 8 20;
+    -fx-cursor: hand;
+}
+
+.tab .tab-label {
+    -fx-text-fill: #6b6b7a;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+}
+
+.tab:hover .tab-label {
+    -fx-text-fill: #ffffff;
+}
+
+.tab:selected {
+    -fx-background-color: #1db954;
+}
+
+.tab:selected .tab-label {
+    -fx-text-fill: #ffffff;
+}
+
+.tab-pane .tab-content-area {
+    -fx-background-color: #0a0a0c;
+}
+
+/* ============================================================ */
+/* ARAMA ÇUBUĞU */
+/* ============================================================ */
 .text-field {
-    -fx-background-color: #1e1e22 !important;
-    -fx-text-fill: #ffffff !important;
-    -fx-prompt-text-fill: #a1a1aa !important;
-    -fx-background-radius: 20 !important;
-    -fx-border-radius: 20 !important;
-    -fx-border-color: #2f2f35 !important;
-    -fx-border-width: 1 !important;
-    -fx-padding: 8 15 8 15 !important;
+    -fx-background-color: #1a1a1f;
+    -fx-text-fill: #ffffff;
+    -fx-prompt-text-fill: #6b6b7a;
+    -fx-background-radius: 25;
+    -fx-border-radius: 25;
+    -fx-border-color: #2a2a32;
+    -fx-border-width: 1;
+    -fx-padding: 10 18 10 18;
+    -fx-font-size: 13px;
 }
+
 .text-field:focused {
-    -fx-border-color: #00e5ff !important;
-    -fx-background-color: #24242a !important;
+    -fx-border-color: #1db954;
+    -fx-background-color: #1e1e26;
 }
 
-/* ================================================================= */
-/* ŞARKİ LİSTESİ (LISTVIEW) - O BEYAZ ZEBRA ÇİZGİLERİNİ ÖLDÜREN KISIM */
-/* ================================================================= */
+/* ============================================================ */
+/* ŞARKI LİSTESİ */
+/* ============================================================ */
 .list-view {
-    -fx-background-color: #151518 !important;
-    -fx-control-inner-background: #151518 !important; /* Beyaz ana arka planı öldürür */
-    -fx-control-inner-background-alt: #151518 !important; /* Alternatif gri çizgiyi öldürür */
-    -fx-background-radius: 12 !important;
-    -fx-border-radius: 12 !important;
-    -fx-border-color: #222226 !important;
-    -fx-border-width: 1 !important;
+    -fx-background-color: #111115;
+    -fx-control-inner-background: #111115;
+    -fx-control-inner-background-alt: #111115;
+    -fx-background-radius: 14;
+    -fx-border-radius: 14;
+    -fx-border-color: #1e1e26;
+    -fx-border-width: 1;
+    -fx-padding: 5;
 }
 
-/* Tüm satırları (tek veya çift fark etmeksizin) koyu renge zorluyoruz */
 .list-cell {
-    -fx-background-color: #151518 !important;
-    -fx-text-fill: #ffffff !important;
-    -fx-padding: 12 15 12 15 !important;
-    -fx-font-size: 13px !important;
-}
-.list-cell:odd {
-    -fx-background-color: #151518 !important;
-}
-.list-cell:even {
-    -fx-background-color: #151518 !important;
-}
-.list-cell:filled {
-    -fx-text-fill: #ffffff !important;
-}
-.list-cell .text {
-    -fx-fill: #ffffff !important; /* Şarkı isimlerini net beyaz yapar */
+    -fx-background-color: transparent;
+    -fx-text-fill: #d4d4d8;
+    -fx-padding: 13 18 13 18;
+    -fx-font-size: 13px;
+    -fx-background-radius: 8;
 }
 
-/* Fareyle şarkının üzerine gelindiğinde */
+.list-cell:odd, .list-cell:even {
+    -fx-background-color: transparent;
+}
+
 .list-cell:filled:hover {
-    -fx-background-color: #222226 !important;
-}
-.list-cell:filled:hover .text {
-    -fx-fill: #00e5ff !important;
+    -fx-background-color: #1e1e26;
+    -fx-text-fill: #ffffff;
 }
 
-/* Şarkı seçildiğinde (Neon Mavi Şov) */
 .list-cell:filled:selected {
-    -fx-background-color: #00e5ff !important;
-}
-.list-cell:filled:selected .text {
-    -fx-fill: #000000 !important;
-    -fx-font-weight: bold !important;
+    -fx-background-color: #1db954;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
 }
 
-/* ================================================================= */
+/* ============================================================ */
+/* ETİKETLER */
+/* ============================================================ */
+.label {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 13px;
+}
+
+/* ============================================================ */
 /* BUTONLAR */
-/* ================================================================= */
+/* ============================================================ */
 .button {
-    -fx-background-color: #1e1e22 !important;
-    -fx-text-fill: #ffffff !important;
-    -fx-background-radius: 20 !important;
-    -fx-border-radius: 20 !important;
-    -fx-border-color: #3f3f46 !important;
-    -fx-border-width: 1 !important;
-    -fx-padding: 8 20 8 20 !important;
-    -fx-font-size: 13px !important;
-    -fx-font-weight: bold !important;
-}
-.button:hover {
-    -fx-background-color: #00e5ff !important;
-    -fx-text-fill: #000000 !important;
-    -fx-border-color: #00e5ff !important;
+    -fx-background-color: #1a1a1f;
+    -fx-text-fill: #ffffff;
+    -fx-background-radius: 25;
+    -fx-border-radius: 25;
+    -fx-border-color: #2a2a32;
+    -fx-border-width: 1;
+    -fx-padding: 10 22 10 22;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
 }
 
-/* Çal / Duraklat Butonu */
-#playButton {
-    -fx-background-color: #1db954 !important;
-    -fx-text-fill: #ffffff !important;
-    -fx-border-color: #1db954 !important;
+.button:hover {
+    -fx-background-color: #2a2a35;
+    -fx-border-color: #3a3a46;
+    -fx-text-fill: #ffffff;
 }
+
+#playButton {
+    -fx-background-color: #1db954;
+    -fx-text-fill: #ffffff;
+    -fx-border-color: #1db954;
+    -fx-padding: 10 30 10 30;
+}
+
 #playButton:hover {
-    -fx-background-color: #1ed760 !important;
-    -fx-text-fill: #000000 !important;
-    -fx-border-color: #1ed760 !important;
+    -fx-background-color: #1ed760;
+    -fx-border-color: #1ed760;
+}
+
+/* ============================================================ */
+/* SLIDER (PROGRESS & VOLUME) */
+/* ============================================================ */
+.slider .track {
+    -fx-background-color: #2a2a35;
+    -fx-background-radius: 4;
+    -fx-pref-height: 4;
+}
+
+.slider .thumb {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 10;
+    -fx-pref-width: 14;
+    -fx-pref-height: 14;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 4, 0, 0, 1);
+}
+
+.slider:hover .thumb {
+    -fx-background-color: #1db954;
+}
+
+/* ============================================================ */
+/* SAĞ TIK MENÜSÜ */
+/* ============================================================ */
+.context-menu {
+    -fx-background-color: #1a1a1f;
+    -fx-border-color: #2a2a32;
+    -fx-border-width: 1;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-padding: 5;
+}
+
+.menu-item {
+    -fx-background-color: transparent;
+    -fx-padding: 8 15 8 15;
+    -fx-background-radius: 6;
+}
+
+.menu-item .label {
+    -fx-text-fill: #d4d4d8;
+    -fx-font-size: 13px;
+}
+
+.menu-item:hover {
+    -fx-background-color: #1db954;
+}
+
+.menu-item:hover .label {
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
 }
