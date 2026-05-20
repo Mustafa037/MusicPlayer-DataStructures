@@ -86,12 +86,21 @@ public class DataController {
         while (j < n2) { list.set(k, rightList.get(j)); j++; k++; }
     }
 
-    // ---------------- TEST VERİLERİ ----------------
     private void loadMockData() {
-        // Başlarındaki "/" işaretlerini sildik, böylece projenin kökündeki music klasörüne bakacak
-        addSong(new Song(1, "Calfiornia Love", "2Pac", 354, "music/bohemian.mp3"));
+        addSong(new Song(1, "California Love", "2Pac", 354, "music/bohemian.mp3"));
         addSong(new Song(2, "Ankara Tatangalar", "Lvbel C5, Ezhel", 390, "music/hotel.mp3"));
         addSong(new Song(3, "Yüzük", "Oğuzhan Koç", 301, "music/smells.mp3"));
         addSong(new Song(4, "Dudu", "Tarkan", 482, "music/stairway.mp3"));
+        addSong(new Song(5, "Birds of a Feather", "Billie Eilish", 210, "music/Billie Eilish - BIRDS OF A FEATHER (Official Music Video).mp3"));
+        addSong(new Song(6, "Cake By The Ocean", "DNCE", 193, "music/DNCE - Cake By The Ocean.mp3"));
+        addSong(new Song(7, "Babydoll", "Dominic Fike", 187, "music/Dominic Fike _Babydoll_ (Official Audio).mp3"));
+        addSong(new Song(8, "Fair Trade", "Drake ft. Travis Scott", 258, "music/Drake - Fair Trade (Audio) ft. Travis Scott.mp3"));
+        addSong(new Song(9, "Köprüaltı", "Duman", 224, "music/Duman - Köprüaltı.mp3"));
+        addSong(new Song(10, "Hileli", "manifest X Ajda Pekkan", 198, "music/manifest X Ajda Pekkan - Hileli _ Official Music Video.mp3"));
+        addSong(new Song(11, "Chicago", "Michael Jackson", 215, "music/Michael Jackson - Chicago (Official Audio).mp3"));
+        addSong(new Song(12, "PVG", "MOTIVE", 176, "music/MOTIVE - PVG.mp3"));
+        addSong(new Song(13, "Namütenahi", "Semicenk", 234, "music/Namütenahi.mp3"));
+        addSong(new Song(14, "Farzet", "Sertab Erener", 201, "music/Sertab Erener - Farzet.mp3"));
+        addSong(new Song(15, "FE!N", "Travis Scott ft. Playboi Carti", 242, "music/Travis Scott - FE!N (Official Music Video) ft. Playboi Carti.mp3"));
     }
 }

@@ -11,6 +11,7 @@ public class PlaybackManager {
     private DoublyLinkedList playlist;
     private Queue upNext;
     private Stack history;
+    private Song lastPlayed;
 
     public PlaybackManager() {
         audioService = new AudioService();
@@ -23,16 +24,15 @@ public class PlaybackManager {
         if (playlist.getCurrent() != null) {
             history.push(playlist.getCurrent());
         }
-
-        // YENİ: Listenin içindeki current ibresini çalan şarkıya senkronize ediyoruz!
         playlist.setCurrentBySong(song);
-
+        lastPlayed = song;
         audioService.play(song.getFilePath());
     }
 
     public void playCurrent() {
         Song current = playlist.getCurrent();
         if (current != null) {
+            lastPlayed = current;
             audioService.play(current.getFilePath());
         }
     }
@@ -41,10 +41,11 @@ public class PlaybackManager {
         history.push(playlist.getCurrent());
 
         if (!upNext.isEmpty()) {
-            Song nextSong = upNext.dequeue();
-            audioService.play(nextSong.getFilePath());
+            lastPlayed = upNext.dequeue();
+            audioService.play(lastPlayed.getFilePath());
         } else {
             Song nextSong = playlist.next();
+            lastPlayed = nextSong;
             audioService.play(nextSong.getFilePath());
         }
     }
@@ -52,16 +53,13 @@ public class PlaybackManager {
     public void previous() {
         if (!history.isEmpty()) {
             Song prevSong = history.pop();
-
-            // YENİ: Geçmişten şarkı alındığında listenin ibresini de o şarkıya çekiyoruz!
             playlist.setCurrentBySong(prevSong);
-
+            lastPlayed = prevSong;
             audioService.play(prevSong.getFilePath());
         }
     }
 
     public void shuffle() {
-        Song current = playlist.getCurrent();
         java.util.List<Song> songs = new java.util.ArrayList<>();
 
         for (int i = 0; i < playlist.getSize(); i++) {
@@ -75,8 +73,9 @@ public class PlaybackManager {
             playlist.add(song);
         }
 
-        if (current != null) {
-            audioService.play(playlist.getCurrent().getFilePath());
+        lastPlayed = playlist.getCurrent();
+        if (lastPlayed != null) {
+            audioService.play(lastPlayed.getFilePath());
         }
     }
 
@@ -90,5 +89,9 @@ public class PlaybackManager {
     public void setVolume(double volume) { audioService.setVolume(volume); }
     public double getCurrentTime() { return audioService.getCurrentTime(); }
     public double getTotalDuration() { return audioService.getTotalDuration(); }
-    public Song getCurrentSong() { return playlist.getCurrent(); }
+
+    public Song getCurrentSong() {
+        if (lastPlayed != null) return lastPlayed;
+        return playlist.getCurrent();
+    }
 }
